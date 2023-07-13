@@ -17,6 +17,12 @@ download_data_bundles(token, list_task_id):
 
 apply_cloud_masking(list_folder_name): 
     Apply cloud masking to the specified folders of raw images.
+
+create_summer_median_composite(list_folder_name): 
+    Create a seasonal median composite for the masked images in the specified folders.
+
+format_median_composite_cog(folder_name):
+    Convert the median composite images in the specified folder to Cloud-Optimized GeoTIFF (COG) format.
 """
 
 import requests
@@ -31,6 +37,7 @@ import rioxarray
 import rioxarray.merge
 import numpy as np
 import warnings
+from osgeo import gdal
 warnings.filterwarnings("ignore")
 
 def get_token(username):
@@ -253,8 +260,8 @@ def download_data_bundles(token, list_task_id):
     from the NASA AppEEARS API.  Each task ID represents a particular task that 
     comprises various files, primarily the raw Land Surface Temperature (LST) 
     ECOSTRESS images and their corresponding cloud mask files. The function 
-    generates a destination folder for each task based on its name and stores the 
-    downloaded files within the respective folder.
+    generates a destination folder for each task based on its name with the '_Raw' 
+    ending and stores the downloaded files within the respective folder.
 
     Parameters
     ----------
@@ -328,7 +335,8 @@ def apply_cloud_masking(list_folder_name):
     This function applies cloud masking to the raw Land Surface Temperature (LST)
     ECOSTRESS images using the corresponding cloud mask files. It requires an input folder 
     that contains both the raw images and the associated cloud mask files. The function
-    creates an output directory to store the processed images as masked TIFF files.
+    creates an output directory to store the processed images as masked TIFF files. The output
+    directory is named by replacing '_Raw' in the input folder name with '_Masked'.
 
     Parameters
     ----------
@@ -400,9 +408,10 @@ def apply_cloud_masking(list_folder_name):
 def create_summer_median_composite(list_folder_name): 
     """Create a seasonal median composite for the masked images in the specified folders.
 
-    This function takes a list of folder names containing ECOSTRESS Land Surface Temperature (LST) images
-    that have been masked. It then creates a median composite in TIFF format for each folder,
-    representing the median values of LST over a summer season.
+    This function takes a list of folder names containing ECOSTRESS Land Surface Temperature (LST)
+    images that have been masked. It then creates a median composite in TIFF format for each 
+    folder, representing the median values of LST over a summer season.The function creates an
+    output directory called 'Summer Median Composites' to store the composite images.
 
     Parameters
     ----------
@@ -422,8 +431,8 @@ def create_summer_median_composite(list_folder_name):
     ----------
     NASA Youtube Tutorial: https://www.youtube.com/watch?v=Yc8QDt2f4hs&t=1462s
     """
-    # Create output directory Annual Median Composites
-    output_directory_median = "Anual Median Composites"
+    # Create output directory Summer Median Composites
+    output_directory_median = "Summer Median Composites"
     os.makedirs(output_directory_median, exist_ok=True)
 
     ## Iterate through all directories of interest
@@ -437,4 +446,42 @@ def create_summer_median_composite(list_folder_name):
         ST_composite.data = np.where(ST_composite.data == 0, np.nan, ST_composite.data)
         ST_composite.rio.to_raster(os.path.join(output_directory_median, f"Median_{folder_name}.tif"))
 
-        print('Annual Median Composite for images in the folder {0} has been completed.'.format(folder_name))
+        print('Summer Median Composite for images in the folder {0} has been completed.'.format(folder_name))
+
+
+def format_median_composite_cog(folder_name):
+    """Convert the median composite images in the specified folder to Cloud-Optimized GeoTIFF (COG) format.
+
+    This function converts the median composite images in the specified folder to Cloud-Optimized
+    GeoTIFF (COG) format. The COG format optimizes the images for efficient cloud storage
+    and retrieval. The converted COG files are saved in the same folder with "_cog.tif" 
+    appended to the original filenames.
+
+    Parameters
+    ----------
+    folder_name : str
+        The name of the folder containing the median composite images.
+
+    Returns
+    -------
+    None
+
+    Examples
+    --------
+    >>> folder_name = 'Summer Median Composites'
+    >>> format_median_composite_cog(folder_name)
+
+    References
+    ----------
+    GDAL Documentation: https://gdal.org/programs/gdal_translate.html
+    Cloud-Optimized GeoTIFF: https://www.cogeo.org/
+    """
+    for tif_file in os.listdir(folder_name):
+        if tif_file.endswith(".tif"):
+            # create output file path
+            out_file = os.path.join(folder_name, os.path.splitext(tif_file)[0] + "_cog.tif")
+            # run gdal_translate command with specified options
+            gdal.Translate(out_file, os.path.join(folder_name, tif_file),
+                        creationOptions=['TILED=YES', 'COPY_SRC_OVERVIEWS=YES', 'COMPRESS=DEFLATE'])
+            
+        print('Summer Median Composite: {0} was successfully format to COG.'.format(tif_file))
