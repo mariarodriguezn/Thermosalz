@@ -28,6 +28,7 @@ from datetime import datetime
 import pandas as pd
 from glob import glob
 import rioxarray
+import rioxarray.merge
 import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
@@ -394,3 +395,46 @@ def apply_cloud_masking(list_folder_name):
             LST.rio.to_raster(LST_masked_filename)
         
         print('Masking for folder {0} has been completed.'.format(folder_name))
+
+
+def create_summer_median_composite(list_folder_name): 
+    """Create a seasonal median composite for the masked images in the specified folders.
+
+    This function takes a list of folder names containing ECOSTRESS Land Surface Temperature (LST) images
+    that have been masked. It then creates a median composite in TIFF format for each folder,
+    representing the median values of LST over a summer season.
+
+    Parameters
+    ----------
+    list_folder_name : list of str
+        A list of folder names containing the ECOSTRESS masked images.
+
+    Returns
+    -------
+    None
+
+    Examples
+    --------
+    >>> folders = ['Folder1_Masked', 'Folder2_Masked']
+    >>> apply_cloud_masking(folders)
+
+    References
+    ----------
+    NASA Youtube Tutorial: https://www.youtube.com/watch?v=Yc8QDt2f4hs&t=1462s
+    """
+    # Create output directory Annual Median Composites
+    output_directory_median = "Anual Median Composites"
+    os.makedirs(output_directory_median, exist_ok=True)
+
+    ## Iterate through all directories of interest
+    for folder_name in list_folder_name:
+        # Create Median Seasonal Composite
+        ST_masked_filenames=[]
+        ST_masked_filenames = sorted(glob(join(folder_name, "*_LST.tif")))
+        ST_masked_rasters = [rioxarray.open_rasterio(filename).squeeze("band", drop=True) for filename in ST_masked_filenames]
+        ST_composite = rioxarray.merge.merge_arrays(ST_masked_rasters, nodata=np.nan)
+        ST_composite.data = np.nanmedian(np.stack([raster.rio.reproject_match(ST_composite).data for raster in ST_masked_rasters]), axis=0)
+        ST_composite.data = np.where(ST_composite.data == 0, np.nan, ST_composite.data)
+        ST_composite.rio.to_raster(os.path.join(output_directory_median, f"Median_{folder_name}.tif"))
+
+        print('Annual Median Composite for images in the folder {0} has been completed.'.format(folder_name))
