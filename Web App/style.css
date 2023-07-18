@@ -7,30 +7,24 @@ html, body {
   top: 0;
   bottom: 0;
   width: 100%;
-}
-/* Feature Overlay*/
-.overlay-container{
-  background-color: black;
-  width: 150px;
-  color: #fff;
-  text-align: center;
-  border-radius: 1px;
-  padding: 2px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 80%;
-  left: 30%;
-  margin-left: -75px;
-  margin-bottom: 10px;
+  height:95%;
 }
 
-.overlay-container #feature-mean::after{
-  content: '';
-  position:absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
+.ol-popup {
+  max-width:300px;
+  min-width:100px;
+  min-height:1em;
+}
+#yearText {
+  border: none;
+  background: none;
+  outline: none;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 120px;
+  height:5%;
+}
+.yearDropdown {
+  margin-left: 0px;
+  
 }
