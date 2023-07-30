@@ -3,33 +3,53 @@ html, body {
   height: 100%;
 }
 #map {
-  position: absolute;
-  top: 0;
+  position: relative;
   bottom: 0;
   width: 100%;
-  height:95%;
+  height:calc(100vh - 80px);
+}
+
+.header{
+  position: relative;
+  width: 100%;
+  height: 80px;
+}
+
+#logo{
+  position: absolute;
+  left: 2%;
+  top:0%;
+}
+
+#yearText {
+  border: none;
+  background: none;
+  outline: none;
+  margin-left: 0px;
+  margin-right: 0px;
+  position: absolute;
+  left: 80%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 210px;
+  font-size: 16px;
+ }
+
+#yearDropdown {
+  position: absolute;
+  left: 90%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  height: 20%;
+  width: 70px;
+  font-size: 15px;
 }
 
 .ol-popup {
   max-width:300px;
   min-width:100px;
   min-height:1em;
-}
-#yearText {
-  border: none;
-  position: relative;
-  background: none;
-  outline: none;
-  margin-left: 0px;
-  margin-right: 0px;
-  width: 200px;
-  height: 5%;
-  left: 80%;
-  }
-#yearDropdown {
-  margin-left: 0px;
-  position:relative;
-  left: 81%;
 }
 
 .layer-switcher {
@@ -57,13 +77,4 @@ html, body {
   top: 6.2em;
   left: 0.5em;
   background-color: rgba(255,255,255,.5);
-}
-
-div.image{
-  content:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHZAq08u4YaR0Jsu2CgeptdxC74y-9QEeFYEAb6YHP&s);
-  width: 100px;
-  height: 100px;
-  position: relative;
-  top: 0.1em;
-  left: 0.5em;
 }

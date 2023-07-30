@@ -11,17 +11,21 @@
     <title>Ecostress Web Application Version 1</title>
   </head>
   <body>
-    <div id="map">
+    <div class="header">
       <input type="text" id="yearText" value="Please select Summer Period" readonly>
-      <select id="yearDropdown">
-        <option value="18">2018</option>
-        <option value="19">2019</option>
-        <option value="20">2020</option>
-        <option value="21">2021</option>
-        <option value="22">2022</option>
-      </select>
-      <div class="image"></div>
+        <select id="yearDropdown">
+          <option value="18">2018</option>
+          <option value="19">2019</option>
+          <option value="20">2020</option>
+          <option value="21">2021</option>
+          <option value="22">2022</option>
+        </select>
+        <img id="logo" src="https://github.com/mariarodriguezn/Thermosalz/blob/WebApp/Web%20App/Thermosalz.jpg?raw=true" alt="Thermosalz" height=80px>
     </div>
+
+    <div id="map">    
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
