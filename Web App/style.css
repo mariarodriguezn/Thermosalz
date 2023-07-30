@@ -17,14 +17,53 @@ html, body {
 }
 #yearText {
   border: none;
+  position: relative;
   background: none;
   outline: none;
   margin-left: 0px;
   margin-right: 0px;
-  width: 120px;
-  height:5%;
-}
-.yearDropdown {
+  width: 200px;
+  height: 5%;
+  left: 80%;
+  }
+#yearDropdown {
   margin-left: 0px;
-  
+  position:relative;
+  left: 81%;
+}
+
+.layer-switcher {
+  position: absolute;
+  top: 6.2em;
+  right: 0.5em;
+  text-align: left;
+}
+
+.ol-legend{
+  opacity: 0.85;
+}
+
+.ol-bookmark ul li[data-name]{
+  color: #000;
+  font-size: 17px;
+}
+
+.ol-bookmark ul{
+  background-color: white;
+  opacity: 0.75;
+}
+
+.ol-control.ol-bookmark {
+  top: 6.2em;
+  left: 0.5em;
+  background-color: rgba(255,255,255,.5);
+}
+
+div.image{
+  content:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHZAq08u4YaR0Jsu2CgeptdxC74y-9QEeFYEAb6YHP&s);
+  width: 100px;
+  height: 100px;
+  position: relative;
+  top: 0.1em;
+  left: 0.5em;
 }

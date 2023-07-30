@@ -1,43 +1,45 @@
 window.onload = init;
 function init(){
 
-  /////////// Colors
-  var colorMap = ['rgba(239, 40, 32, 0.55)', 'rgba(249, 162, 72, 0.55)', 'rgba(241, 251, 124, 0.55)', 'rgba(170, 205, 171, 0.55)', 'rgba(56, 161, 208, 0.55)'];
+  /////////// Colors and Interval Marks
+  var colorMap = ['rgba(239, 40, 32, 0.8)',
+  'rgba(246, 113, 47, 0.8)',
+  'rgba(249, 162, 72, 0.8)',
+  'rgba(241, 251, 124, 0.8)',
+  'rgba(207, 228, 150, 0.8)',
+  'rgba(170, 205, 171, 0.8)',
+  'rgba(127, 183, 190, 0.8)',
+  'rgba(56, 161, 208, 0.8)'];
+
+  var marks = [38,35,32,29,27,25,23,12]
 
   /////////// Layers
   // Vector Layers - Hexagons
   var hex= new ol.layer.Vector({
     title: "Hexagons",
     source: new ol.source.Vector({
-      url: "https://ecostress.s3.eu-central-1.amazonaws.com/summer/Hexagons_20000.geojson",
+      url: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Hexagons_Salzburg_10.geojson',
       format: new ol.format.GeoJSON()
     }),
     style: function(feature) {
-      // Your style logic here
-      // Return the appropriate style for each feature
-      return styleFunction(feature,'s_mean_2018');
+      return styleFunction(feature,'s_mean_18');
     }
   })
 
   // Raster Layers - Composites
-  const lst_style = {
+  var lst_style = {
     color: [
       'interpolate',
       ['linear'],
-      (['band', 1]),
-      24.74,
-      colorMap[4],
-      26.72,
-      colorMap[3],
-      28.43,
-      colorMap[2],
-      30.37,
-      colorMap[1],
-      34.5,
-      colorMap[0]
+      ['band', 1],
     ],
   };
-
+  
+  for (let i = 0; i < marks.length; i++) {
+    lst_style.color.push(marks[i]);
+    lst_style.color.push(colorMap[i]);
+  }
+  
   var lst = new ol.layer.WebGLTile({
     style: lst_style,
     title: 'Median Annual Composite',
@@ -45,7 +47,7 @@ function init(){
       normalize: false,
       sources: [
         {
-          url: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Median_Salzburg_Summer_20_Masked_cog.tif',
+          url: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Median_Salzburg_Summer_18_Masked_cog.tif',
         },
       ],
     }),
@@ -88,37 +90,25 @@ function init(){
   });
 
    /////////// Hexagons Style
-   var gradColors = [  [24.74, colorMap[4]],
-                    [26.72, colorMap[3] ],
-                    [28.43, colorMap[2]],
-                    [30.37, colorMap[1]],
-                    [34.5, colorMap[0]]];
-
-  // Create a style function
   var styleFunction = function(feature, field) {
-  var value = feature.get(field); // Assuming 'mean' is the field name
-  var style;
+    var value = feature.get(field);
+    var style;
+    for (var i = 0; i < marks.length; i++) {
+      if (value <= marks[i]) {
+        style = new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: colorMap[i]
+          }),
+          stroke: new ol.style.Stroke({
 
-  // Iterate over the gradient colors and find the appropriate style
-  for (var i = 0; i < gradColors.length; i++) {
-    var pair = gradColors[i];
-    var rangeValue = pair[0];
-    var color = pair[1];
-
-    if (value <= rangeValue) {
-      style = new ol.style.Style({
-        fill: new ol.style.Fill({
-          color: color
-        }),
-        stroke: new ol.style.Stroke({
-          color: '#6E6E6E' // Add your desired stroke color here
-        })
-      });
-      break;
+            color: '#6e6e6e',
+            width: 0.7
+          })
+        });
+      }
     }
-  }
-  return style;
-};
+    return style;
+  };
 
   /////////// Pop Up Hexagons
   // Select  interaction
@@ -141,7 +131,7 @@ function init(){
         //},
         attributes:
         {
-          's_mean_2018': { title: 'Mean LST (°C)' }
+          's_mean_18': { title: 'Mean LST (°C)' }
         }
     }
   });
@@ -150,9 +140,9 @@ function init(){
   /////////// Swipe Control
   var ctrl_swipe = new ol.control.Swipe();
   map.addControl(ctrl_swipe);
-  // Set stamen on left
+  // Left
   ctrl_swipe.addLayer(lst);
-  // OSM on right
+  // Right
   ctrl_swipe.addLayer(hex,true);
     map.addControl (new ol.control.LayerSwitcher());
 
@@ -164,25 +154,38 @@ function init(){
   map.addControl(layerSwitcher);
 
   /////////// Extent Control
-  var extent =    [12.958251953125, 47.74658203125, 13.0933837890625, 47.896240234375]; // Replace with your desired extent coordinates
+  var extent = [12.952366079558944, 47.7148606236224, 13.099233920441057, 47.927939376377594];
   var ctrl_extent = new ol.control.ZoomToExtent({
     extent: extent,
   });
     map.addControl(ctrl_extent);
 
+  /////////// Legend
+  var legend = new ol.legend.Legend({ 
+    maxWidth: 200
+  });
+  var legendCtrl = new ol.control.Legend({
+    legend: legend,
+    collapsed: true
+  });
+  map.addControl(legendCtrl);
+  
+  var imageItem = new ol.legend.Image({
+    src: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Legend_Salzburg.jpg',
+    width: 200
+  });
+  legend.addItem(imageItem);
 
   /////////// Year Selection
   var yearDropdown = document.getElementById('yearDropdown');
   yearDropdown.addEventListener('change', function() {
     var selectedYear = yearDropdown.value;
-    updateLayers(selectedYear);
+    updateLayers_Year(selectedYear);
   });
 
-  function updateLayers(selectedYear) {
+  function updateLayers_Year(selectedYear) {
     // Update the source URL of the raster layer
-    var lastTwoDigits = selectedYear.slice(-2);
-    var newUrl = 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Median_Salzburg_Summer_' + lastTwoDigits + '_Masked_cog.tif';
-    // Create a new source with the updated URL
+    var newUrl = 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Median_Salzburg_Summer_' + selectedYear + '_Masked_cog.tif';
     var newSource = new ol.source.GeoTIFF({
       normalize: false,
       sources: [
@@ -191,23 +194,49 @@ function init(){
         },
       ],
     });
-    // Set the new source for the lst layer
     lst.setSource(newSource);
 
     // Update the field name
     var fieldName = 's_mean_' + selectedYear;
+
     // Update the style function for the hex layer
     hex.setStyle(function(feature) {
     return styleFunction(feature, fieldName);
     });
+
     // Update the template for the popup
     popup.setTemplate({
     attributes: {
       [fieldName]: { title: 'Mean LST (°C)' }
     }
     });
-
   }
-  
 
-}
+  /////////// Bookmark
+  var bm = new ol.control.GeoBookmark({	
+    marks: {
+      'Salzburg Airport': {pos:[13.0025976,  47.7935844], projection: "EPSG:4326", zoom:18, permanent: true },
+      'Salzburg Hauptbahnhof': {pos:[13.0478668,  47.8163289], projection: "EPSG:4326", zoom:18, permanent: true },
+      'Salzach River - North': {pos:[12.9899677,  47.8662063], projection: "EPSG:4326", zoom:18, permanent: true },
+      'Kapuzinerberg': {pos:[13.0577319,  47.8042712], projection: "EPSG:4326", zoom:18, permanent: true },
+      'Freilassing': {pos:[12.9750304, 47.8427681], projection: "EPSG:4326", zoom:15, permanent: true }
+    },
+    editable: false
+  });
+  map.addControl(bm);
+
+  /////////// Search
+  var searchNominatim = new ol.control.SearchNominatim (
+    {   //target: $(".options").get(0),
+    //  polygon: $("#polygon").prop("checked"),
+        reverse: true,
+        position: true, // Search, with priority to geo position
+    });
+  var requestData = searchNominatim.requestData.bind(searchNominatim);
+  searchNominatim.requestData = function (s) {
+      var data = requestData(s);
+      data.countrycodes = '43,662';
+      return data;
+  };
+  map.addControl (searchNominatim);
+};
