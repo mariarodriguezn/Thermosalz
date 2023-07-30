@@ -224,6 +224,9 @@ function init(){
     editable: false
   });
   map.addControl(bm);
+  bm.removeBookmark('Salzburg')
+  bm.removeBookmark('Graz')
+  bm.removeBookmark('Linz')
 
   /////////// Search
   var searchNominatim = new ol.control.SearchNominatim (
