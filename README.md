@@ -14,10 +14,10 @@ Thermosalz: an interactive Web Application with Open Layers to display Land Surf
 
 To check the final Web App and how to use it, access the following website: [Thermosalz](https://rawcdn.githack.com/mariarodriguezn/Thermosalz/e347503b59eb9ef3b585cc63dda23f94cdc9df2c/Website/Home.html)
 
-![Website1](https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Thermosalz_Website1.jpg?raw=true)
+[![Website1](https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Thermosalz_Website1.jpg?raw=true)](https://rawcdn.githack.com/mariarodriguezn/Thermosalz/e347503b59eb9ef3b585cc63dda23f94cdc9df2c/Website/Home.html)
 
 
-![website2](https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Thermosalz_Website2.jpg?raw=true)
+[![website2](https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Thermosalz_Website2.jpg?raw=true)](https://rawcdn.githack.com/mariarodriguezn/Thermosalz/e347503b59eb9ef3b585cc63dda23f94cdc9df2c/Website/Home.html)
 
 
 ## How this was built?
