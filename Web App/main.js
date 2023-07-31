@@ -4,14 +4,12 @@ function init(){
   /////////// Colors and Interval Marks
   var colorMap = ['rgba(239, 40, 32, 0.8)',
   'rgba(246, 113, 47, 0.8)',
-  'rgba(249, 162, 72, 0.8)',
   'rgba(241, 251, 124, 0.8)',
   'rgba(207, 228, 150, 0.8)',
   'rgba(170, 205, 171, 0.8)',
-  'rgba(127, 183, 190, 0.8)',
   'rgba(56, 161, 208, 0.8)'];
 
-  var marks = [38,35,32,29,27,25,23,12]
+  var marks = [35,32,29,27,25,23]
 
   /////////// Layers
   // Vector Layers - Hexagons
