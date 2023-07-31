@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.css" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecostress Web Application Version 1</title>
+  </head>
+  <body>
+    <div class="header">
+      <label id="yearText">Please Select<br>Summer Period:</label>
+        <select id="yearDropdown">
+          <option value="18">2018</option>
+          <option value="19">2019</option>
+          <option value="20">2020</option>
+          <option value="21">2021</option>
+          <option value="22">2022</option>
+        </select>
+        <img id="logo" src="https://github.com/mariarodriguezn/Thermosalz/blob/WebApp/Web%20App/Thermosalz.jpg?raw=true" alt="Thermosalz" height=80px>
+    </div>
+
+    <div id="map">    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
+    <script src="https://unpkg.com/ol-layerswitcher@4.1.1"></script>
+    <script type="module" src="./main.js"></script>
+    
+  </body>
+</html>

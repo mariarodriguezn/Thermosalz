@@ -1,0 +1,84 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+#map {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height:calc(100vh - 80px);
+}
+
+.header{
+  position: relative;
+  width: 100%;
+  height: 80px;
+}
+
+#logo{
+  position: absolute;
+  left: 2%;
+  top:0%;
+}
+
+#yearText {
+  border: none;
+  background: none;
+  outline: none;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin: 20px;
+  position: absolute;
+  left: 75%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 210px;
+  font-size: 17px;
+  text-align:center;
+  font-family: sans-serif;
+}
+
+#yearDropdown {
+  position: absolute;
+  left: 88%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  height: 20%;
+  width: 70px;
+  font-size: 15px;
+  font-family: sans-serif;
+}
+
+.ol-popup {
+  max-width:300px;
+  min-width:100px;
+  min-height:1em;
+}
+
+.layer-switcher {
+  position: absolute;
+  top: 6.2em;
+  right: 0.5em;
+  text-align: left;
+}
+
+.ol-legend{
+  opacity: 0.85;
+}
+
+.ol-bookmark ul li[data-name]{
+  color: #000;
+  font-size: 17px;
+}
+
+.ol-bookmark ul{
+  background-color: white;
+  opacity: 0.75;
+}
+
+.ol-control.ol-bookmark {
+  top: 6.2em;
+  left: 0.5em;
+  background-color: rgba(255,255,255,.5);
+}
