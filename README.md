@@ -24,7 +24,9 @@ To check for the final Web App and how to use it, please access the following we
 </p>
 
 ## How this was built?
-
+<p align="center">
+  <img src="https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Methodology.jpg?raw=true" alt="Methodology" width="800"/>
+</p>
 
 ## Respository Structure
 
