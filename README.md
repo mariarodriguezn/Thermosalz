@@ -8,7 +8,7 @@ Thermosalz is an interactive Web Application created with Open Layers to display
 ## Web App Capabilities
 - **TEMPERATURE:** Visualize Summer Annual Composites layers displaying the LST (°C) median values for Salzburg.
 - **HEXAGONAL BINS:** Click on the Hexagons to enable a pop-up showing the spatially aggregated LST (°C) values by mean.
-- **SWIPE:** Compare the Annual Composites layers with the spatial aggregated hexagons by using the swipe.
+- **SWIPE:** Compare the Annual Composites layers with the spatially aggregated hexagons by using the swipe.
 - **LOCATE:** Look for a place in Salzburg with the search button or using the bookmarks.
 
 
@@ -23,20 +23,20 @@ To check for the final Web App and how to use it, please access the following we
   <a href="https://rawcdn.githack.com/mariarodriguezn/Thermosalz/e347503b59eb9ef3b585cc63dda23f94cdc9df2c/Website/Home.html"><img src="https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Thermosalz_Website2.jpg?raw=true" alt="Website2" width="800"/>
 </p>
 
-## How this was built?
+## How Thermosalz was created?
 <p align="center">
   <img src="https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Methodology.jpg?raw=true" alt="Methodology" width="800"/>
 </p>
 
-## Respository Structure
+## Repository Structure
 
-The repository is based around the following directory structure:
+The repository is based on the following directory structure:
 
 1. [Web App](https://github.com/mariarodriguezn/Thermosalz/tree/main/Web%20App): Thermosalz Web App source code.
 
 2. [Website](https://github.com/mariarodriguezn/Thermosalz/tree/main/Website): Source code of the created Website with the objective of embedding Thermosalz Web App, explaining its capabilities through a video demonstration and listing its data sources.
 
-3. [tools](https://github.com/mariarodriguezn/Thermosalz/tree/main/tools): Python modules developed to generate the layers (Ecostress Annual Summer Composites and Hexagons) used in Thermosalz Web App and their associated environment. It also contains Jupyter Notebooks demonstrating the specific step by step followed.
+3. [tools](https://github.com/mariarodriguezn/Thermosalz/tree/main/tools): Python modules developed to generate the layers (Ecostress Annual Summer Composites and Hexagons) used in Thermosalz Web App and their associated environment. It also contains Jupyter Notebooks demonstrating the specific step-by-step followed.
 
 | Module            | Required Environment | Demo Notebook |
 | :---------------: | :------------------: | :-----------: |
