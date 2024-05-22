@@ -16,7 +16,7 @@ function init(){
   var hex= new ol.layer.Vector({
     title: "Hexagons",
     source: new ol.source.Vector({
-      url: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Hexagons_Salzburg_10.geojson',
+      url: 'https://raw.githubusercontent.com/mariarodriguezn/Thermosalz/main/data/summer/Hexagons_Salzburg_10.geojson',
       format: new ol.format.GeoJSON()
     }),
     style: function(feature) {
@@ -45,7 +45,7 @@ function init(){
       normalize: false,
       sources: [
         {
-          url: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Median_Salzburg_Summer_18_Masked_cog.tif',
+          url: 'https://raw.githubusercontent.com/mariarodriguezn/Thermosalz/main/data/summer/Median_Salzburg_Summer_18_Masked_cog.tif',
         },
       ],
     }),
@@ -169,7 +169,7 @@ function init(){
   map.addControl(legendCtrl);
   
   var imageItem = new ol.legend.Image({
-    src: 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Legend_Salzburg.jpg',
+    src: 'https://raw.githubusercontent.com/mariarodriguezn/Thermosalz/main/data/summer/Legend_Salzburg.jpg',
     width: 200
   });
   legend.addItem(imageItem);
@@ -183,7 +183,7 @@ function init(){
 
   function updateLayers_Year(selectedYear) {
     // Update the source URL of the raster layer
-    var newUrl = 'https://ecostress.s3.eu-central-1.amazonaws.com/summer/Median_Salzburg_Summer_' + selectedYear + '_Masked_cog.tif';
+    var newUrl = 'https://raw.githubusercontent.com/mariarodriguezn/Thermosalz/main/data/summer/Median_Salzburg_Summer_' + selectedYear + '_Masked_cog.tif';
     var newSource = new ol.source.GeoTIFF({
       normalize: false,
       sources: [
