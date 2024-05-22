@@ -14,7 +14,7 @@ Thermosalz is an interactive Web Application created with Open Layers to display
 
 ## Website
 
-To check for the final Web App and how to use it, please access the following website: [Thermosalz](https://rawcdn.githack.com/mariarodriguezn/Thermosalz/e347503b59eb9ef3b585cc63dda23f94cdc9df2c/Website/Home.html)
+To check for the final Web App and how to use it, please access the following website: [Thermosalz](https://rawcdn.githack.com/mariarodriguezn/Thermosalz/6b9abdf539d7e585ebd95c880fe39611a8e604ab/Website/Home.html)
 
 <p align="center">
   <a href="https://rawcdn.githack.com/mariarodriguezn/Thermosalz/e347503b59eb9ef3b585cc63dda23f94cdc9df2c/Website/Home.html"><img src="https://github.com/mariarodriguezn/Thermosalz/blob/main/Website/images/Thermosalz_Website1.jpg?raw=true" alt="Website1" width="800"/>
